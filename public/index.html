@@ -1,40 +1,42 @@
 <!DOCTYPE html>
-<!-- saved from url=(0043)https://detailscraft-725c0.firebaseapp.com/ -->
-<html>
+<!-- saved from url=(0039)https://super-ultimate-project.web.app/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>chat</title>
+  <script src="/__/firebase/6.4.0/firebase-app.js"></script>
+  <script src="/__/firebase/6.4.0/firebase-auth.js"></script>
+  <script src="/__/firebase/6.4.0/firebase-messaging.js"></script>
+  <script src="/__/firebase/6.4.0/firebase-storage.js"></script>
+  <script src="/__/firebase/6.4.0/firebase-firestore.js"></script>
+  <script src="/__/firebase/init.js"></script>
+  <script src="/JS/main.js"></script>
+ <link href="/css/main.css" rel="stylesheet">
+  <style>
+    #messageList {border: 4px inset blue;width: 50%; height: 70%; float: left;}
+    body{width: 100%; height: 100%;}
+    html{width: 100%; height: 100%;}
+    #input_panel{float: right;}
+    .input{border-radius: 2px 2px 2px 2px;}
+    #message{width: 40%; height: 30% }
+  </style>
+</head> 
+<body >
+  <div id="messageList"> 
 
- <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-	<title>Ссылка JavaScript</title>
-	<script>
-		function draw() {
-			var canvas = document.getElementById("canvas");
-			if (canvas.getContext) {
-				var ctx = canvas.getContext("2d");
-				ctx.fillStyle = "rgb(100,50,25)";
-				ctx.fillRect(10, 100, 75, 45);
-
-				ctx.fillStyle = "rgba(10, 50, 200, 0.5)";
-				ctx.fillRect(70, 90, 108, 50);
-			}
-		}
-	</script>
- </head>
-  <body onload="draw();">
-	<canvas id="canvas" width="600" height="500"></canvas>
-	<script>
-		var Switch = true;
-		var canvas = document.getElementById("canvas");
-		canvas.height = 500;
-		canvas.width = 600;
-		function Toggle() {
-			if (Switch) {
-				document.getElementById("canvas").style.display = 'none';
-			} else (Switch = false)
-			document.getElementById("canvas").style.display = 'block';
-		}
-	</script>
-	<button value="Спрятать и показать canvas" onclick="Toggle()">Спрятать и показать canvas</button>
-  </body>
-
+  </div>
+  <br>
+  <div id = "input_panel">
+  <input class="input" id ="messageText" type="text" size="50" maxlength="250" required="true" placeholder="message">
+ 
+  <input class="input" type="submit" onclick="sendMessage()"placeholder="send"><br><br>
+ 
+  <input class="input" id="name" type="text"  maxlength="16" required="true" placeholder="name">
+  </div>
+</body>
 </html>
+ 
+ 
+ 
+ 
+ 
