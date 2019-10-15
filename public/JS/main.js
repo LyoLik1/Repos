@@ -1,5 +1,5 @@
 function ongetMessages(snapshot) {
-    for (var i = 24; i >=0; i--) {
+    for (var i = snapshot.docs.length-1; i >=0; i--) {
         var message = snapshot.docs[i].data();
         ShowMessage(message.userName, message.text,message.time_stand);
         
