@@ -10,13 +10,13 @@ function ShowMessage(username, messageText, timestamp) {
     MessageList.innerHTML += `
 <div>MessageList
 <span class="un">`+ username + `</span>
-<span class="tm">`+ timestamp + `</span>
+<span class="tm">`+timestamp + `</span>
 <span class="text">`+ messageText + `</span>
 </div>`;
 MessageList.scrollTop = 999999;
 }
 var db = firebase.firestore();
-var messages = db.collection('messages').orderBy('time_stand','desc').limit(25).get();
+var messages = db.collection('messages').orderBy('time_stand','desc').limit(35).get();
 messages.then(ongetMessages);
 console.log(messages);
 function saveMessage(messageText, userName, timestamp) {
