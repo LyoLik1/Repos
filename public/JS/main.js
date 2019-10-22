@@ -1,23 +1,35 @@
 function ongetMessages(snapshot) {
-    for (var i = snapshot.docs.length-1; i >=0; i--) {
+    for (var i = snapshot.docs.length - 1; i >= 0; i--) {
         var message = snapshot.docs[i].data();
-        ShowMessage(message.userName, message.text,message.time_stand);
-        
+        ShowMessage(message.userName, message.text, message.time_stand);
+
     }
 }
 function ShowMessage(username, messageText, timestamp) {
-    var  MessageList= document.getElementById('messageList');
+    var MessageList = document.getElementById('messageList');
     MessageList.innerHTML += `
 <div>MessageList
 <span class="un">`+ username + `</span>
-<span class="tm">`+timestamp + `</span>
+<span class="tm">`+ timestamp + `</span>
 <span class="text">`+ messageText + `</span>
 </div>`;
-MessageList.scrollTop = 999999;
+    MessageList.scrollTop = 999999;
+
 }
 var db = firebase.firestore();
-var messages = db.collection('messages').orderBy('time_stand','desc').limit(35).get();
-messages.then(ongetMessages);
+//var messages = db.collection('messages').orderBy('time_stand', 'desc').limit(25).get();
+//messages.then(ongetMessages);
+var ongetMessages = db.collection('messages').orderBy('time_stand', 'desc').limit(25).onSnapshot(function (snapshot) {
+    console.log('gtrerg');
+    snapshot.docChanges().forEach(function(change) {
+    if (change.type === "added") {
+        var message = change.doc.data()
+        console.log("gtrerg ", message);
+        ShowMessage( message.text,message.time_stand,message.userName);
+   
+    }
+   })
+});
 console.log(messages);
 function saveMessage(messageText, userName, timestamp) {
     return db.collection('messages').add({
@@ -32,5 +44,5 @@ function sendMessage() {
     var timestamp = new Date();
     saveMessage(Message, Name, timestamp);
 
-    ShowMessage(Message, Name, timestamp);
+    //ShowMessage(Message, Name, timestamp);
 }
