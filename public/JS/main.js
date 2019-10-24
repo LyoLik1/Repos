@@ -7,11 +7,12 @@ function ongetMessages(snapshot) {
 }
 function ShowMessage(username, messageText, timestamp) {
     var MessageList = document.getElementById('messageList');
+
     MessageList.innerHTML += `
-<div>MessageList
-<span class="un">`+ username + `</span>
-<span class="tm">`+ timestamp + `</span>
-<span class="text">`+ messageText + `</span>
+<div><div style='color:red'>Message</div>Name
+<span class="un">`+ username + `</span>;<div style='color:orange'></div>time
+<span class="tm">`+ timestamp + `</span>;<div style='color:green'></div>Text
+<span class="text">`+ messageText + `</span>;
 </div>`;
     MessageList.scrollTop = 999999;
 
@@ -19,14 +20,14 @@ function ShowMessage(username, messageText, timestamp) {
 var db = firebase.firestore();
 //var messages = db.collection('messages').orderBy('time_stand', 'desc').limit(25).get();
 //messages.then(ongetMessages);
-var ongetMessages = db.collection('messages').orderBy('time_stand', 'desc').limit(25).onSnapshot(function (snapshot) {
+var ongetMessages = db.collection('messages').orderBy('time_stand', 'desc').limit(29).onSnapshot(function (snapshot) {
     console.log('gtrerg');
-    snapshot.docChanges().forEach(function(change) {
+    snapshot.docChanges().reverse().forEach(function(change) {
     if (change.type === "added") {
         var message = change.doc.data()
         console.log("gtrerg ", message);
-        ShowMessage( message.text,message.time_stand,message.userName);
-   
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',timeStyle:"short",dateStyle :"short" };
+        ShowMessage( message.userName,message.text,message.time_stand.toDate().toLocaleDateString("ru-RU",options));   
     }
    })
 });
