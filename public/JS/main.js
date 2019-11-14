@@ -20,7 +20,7 @@ function ShowMessage(username, messageText, timestamp) {
 var db = firebase.firestore();
 //var messages = db.collection('messages').orderBy('time_stand', 'desc').limit(25).get();
 //messages.then(ongetMessages);
-var ongetMessages = db.collection('messages').orderBy('time_stand', 'desc').limit(29).onSnapshot(function (snapshot) {
+var ongetMessages = db.collection('messages').orderBy('time_stand', 'desc').limit(30).onSnapshot(function (snapshot) {
     console.log('gtrerg');
     snapshot.docChanges().reverse().forEach(function(change) {
     if (change.type === "added") {

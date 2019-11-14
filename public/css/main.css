@@ -1,4 +1,4 @@
-#messageList {border: 6px inset blue;width: 70%; height: 70%; float: left;}
+#messageList {border: 6px inset blue;width: 70%; height: 70%; float: left;background-color:yellow}
 body{width: 100%; height: 100%;}
 html{width: 100%; height: 100%;}
 #input_panel{float: right;}
