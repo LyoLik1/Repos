@@ -29,7 +29,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 
 
   } else {
-    //document.getElementById('firebaseui-auth-container') .style.display = "none"; 
+    document.getElementById('firebaseui-auth-container').style.display = "none";
     document.getElementById('logout').style.display = "none";
     document.getElementById('user-info').style.display = "none";
     uiStart();
@@ -38,5 +38,5 @@ firebase.auth().onAuthStateChanged(function (user) {
 });
 function logOut() {
   firebase.auth().signOut();
-  
+
 }

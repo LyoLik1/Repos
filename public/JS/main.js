@@ -48,36 +48,61 @@
 
 //     //ShowMessage(Message, Name, timestamp);
 // }
-function Submit() {
-    // var Name = document.getElementById('log').value;
-    // var password = document.getElementById('password').value;
-    // var number = document.getElementById('number').value;
-    // var hobbi = document.getElementById('hobbi').value;
-    // var Pol = document.getElementById('Pol').value;
-    console.log(Submit);
-    return false;
-}
-function getSelectedRadioIdnex(buttons){
-    for(var i=0;i<buttons.length;i++)
-        if(buttons[i].checked)
+// function Submit() {
+//     // var Name = document.getElementById('log').value;
+//     // var password = document.getElementById('password').value;
+//     // var number = document.getElementById('number').value;
+//     // var hobbi = document.getElementById('hobbi').value;
+//     // var Pol = document.getElementById('Pol').value;
+//     console.log(Submit);
+//     return false;
+// }
+function getSelectedRadioIdnex(buttons) {
+    for (var i = 0; i < buttons.length; i++)
+        if (buttons[i].checked)
             return i;
 }
-function Select() {
+function Submit() {
     var nameValue = document.getElementsByName('name').value;
     var passwordValue = document.getElementsByName('password').value;
     var numberValue = document.getElementsByName('number').value;
     var hobbiValue = document.getElementsByName('hobbi').value;
     var polValue = getSelectedRadioIdnex(document.getElementsByName('Pol'));
-    return {
-        name:nameValue,
-        password:passwordValue,
-        number:numberValue,
-        hobbi:hobbiValue,
-        pol:polValue
-
-
-
-    } ;
-
+    
+    
+   var appVerifier = window.recaptchaVerifier;
+   firebase.auth().signInWithPhoneNumber(numberValue, appVerifier)
+    .then(function (confirmationResult) {
+      console.log();
+      window.confirmationResult = confirmationResult;
+    }).catch(function (error) {
+    console.log();
+    });
+    return false;
 }
+firebase.auth().languageCode = 'en';
+// To apply the default browser preference instead of explicitly setting it.
+// firebase.auth().useDeviceLanguage();
+window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+  'size': 'invisible',
+  'callback': function (response) {
+    // reCAPTCHA solved, allow signInWithPhoneNumber.
+    console.log('asdsadsadsad');
+  }
+});
+window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('firebaseui-auth-container', {
+    'size': 'normal',
+    'callback': function(response) {
+      // reCAPTCHA solved, allow signInWithPhoneNumber.
+      // ...
+    },
+    'expired-callback': function() {
+      // Response expired. Ask user to solve reCAPTCHA again.
+      // ...
+    }
+  });
+  recaptchaVerifier.render().then(function(widgetId) {
+    window.recaptchaWidgetId = widgetId;
+  });
+
 
