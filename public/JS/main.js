@@ -68,16 +68,17 @@ function Submit() {
     var numberValue = document.getElementsByName('number').value;
     var hobbiValue = document.getElementsByName('hobbi').value;
     var polValue = getSelectedRadioIdnex(document.getElementsByName('Pol'));
+  
     
-    
+
    var appVerifier = window.recaptchaVerifier;
-   firebase.auth().signInWithPhoneNumber(numberValue, appVerifier)
-    .then(function (confirmationResult) {
-      console.log();
-      window.confirmationResult = confirmationResult;
-    }).catch(function (error) {
-    console.log();
-    });
+    firebase.auth().signInWithPhoneNumber(numberValue, appVerifier)
+     .then(function (confirmationResult) {
+       console.log();
+       window.confirmationResult = confirmationResult;
+     }).catch(function (error) {
+      console.log(error);
+     });
     return false;
 }
 firebase.auth().languageCode = 'en';
