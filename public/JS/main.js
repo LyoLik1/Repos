@@ -49,61 +49,55 @@
 //     //ShowMessage(Message, Name, timestamp);
 // }
 // function Submit() {
-//     // var Name = document.getElementById('log').value;
+//     // var Name = document.getElementById('name').value;
 //     // var password = document.getElementById('password').value;
 //     // var number = document.getElementById('number').value;
 //     // var hobbi = document.getElementById('hobbi').value;
-//     // var Pol = document.getElementById('Pol').value;
+//     // var Pol = document.getElementById('pol').value;
 //     console.log(Submit);
 //     return false;
 // }
 function getSelectedRadioIdnex(buttons) {
-    for (var i = 0; i < buttons.length; i++)
-        if (buttons[i].checked)
-            return i;
+  for (var i = 0; i < buttons.length; i++)
+    if (buttons[i].checked)
+      return i;
 }
 function Submit() {
-    var nameValue = document.getElementsByName('name').value;
-    var passwordValue = document.getElementsByName('password').value;
-    var numberValue = document.getElementsByName('number').value;
-    var hobbiValue = document.getElementsByName('hobbi').value;
-    var polValue = getSelectedRadioIdnex(document.getElementsByName('Pol'));
-  
-    
+  var nameValue = document.getElementById('name').value;
+  var passwordValue = document.getElementById('password').value;
+  var numberValue = document.getElementById('number').value;
+  var hobbiValue = document.getElementById('hobbi').value;
+  var polValue = getSelectedRadioIdnex(document.getElementsByName('pol'));
 
-   var appVerifier = window.recaptchaVerifier;
-    firebase.auth().signInWithPhoneNumber(numberValue, appVerifier)
-     .then(function (confirmationResult) {
-       console.log();
-       window.confirmationResult = confirmationResult;
-     }).catch(function (error) {
+
+  var appVerifier = window.recaptchaVerifier;
+  firebase.auth().signInWithPhoneNumber(numberValue, appVerifier)
+    .then(function (confirmationResult) {
+      console.log();
+      //window.confirmationResult = confirmationResult;
+      
+    }).catch(function (error) {
       console.log(error);
-     });
-    return false;
+    });
+  return false;
 }
 firebase.auth().languageCode = 'en';
 // To apply the default browser preference instead of explicitly setting it.
 // firebase.auth().useDeviceLanguage();
-window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-  'size': 'invisible',
+
+window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('firebaseui-auth-container', {
+  'size': 'normal',
   'callback': function (response) {
     // reCAPTCHA solved, allow signInWithPhoneNumber.
-    console.log('asdsadsadsad');
+    // ...
+  },
+  'expired-callback': function () {
+    // Response expired. Ask user to solve reCAPTCHA again.
+    // ...
   }
 });
-window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('firebaseui-auth-container', {
-    'size': 'normal',
-    'callback': function(response) {
-      // reCAPTCHA solved, allow signInWithPhoneNumber.
-      // ...
-    },
-    'expired-callback': function() {
-      // Response expired. Ask user to solve reCAPTCHA again.
-      // ...
-    }
-  });
-  recaptchaVerifier.render().then(function(widgetId) {
-    window.recaptchaWidgetId = widgetId;
-  });
+recaptchaVerifier.render().then(function (widgetId) {
+  window.recaptchaWidgetId = widgetId;
+});
 
 
