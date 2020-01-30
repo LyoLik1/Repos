@@ -57,10 +57,27 @@
 //     console.log(Submit);
 //     return false;
 // }
+function ShowRegistration(){
+$('#registrate').show();
+$('#buttons').hide();
+}
+function ShowLogin(){
+$('#firebaseui-auth-container').show();
+$('#buttons').hide();
+uiStart();
+
+
+}
+
+
+
 function getSelectedRadioIdnex(buttons) {
   for (var i = 0; i < buttons.length; i++)
     if (buttons[i].checked)
       return i;
+}
+function getCodeFromUserInput(){
+ return document.getElementById("kodnumber").value
 }
 function Submit() {
   var nameValue = document.getElementById('name').value;
@@ -73,9 +90,22 @@ function Submit() {
   var appVerifier = window.recaptchaVerifier;
   firebase.auth().signInWithPhoneNumber(numberValue, appVerifier)
     .then(function (confirmationResult) {
-      console.log();
+      $("#exampleModal").modal(true);
+      $("#confirm_button").on("click", function () {
+        console.log("Confirm clicked");
+        var code = getCodeFromUserInput();
+        confirmationResult.confirm(code).then(function (result) {
+          // User signed in successfully.
+          var user = result.user;
+          // ...
+        }).catch(function (error) {
+          // User couldn't sign in (bad verification code?)
+          // ...
+        });
+
+      });
       //window.confirmationResult = confirmationResult;
-      
+
     }).catch(function (error) {
       console.log(error);
     });
