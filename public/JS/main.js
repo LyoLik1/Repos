@@ -57,17 +57,36 @@
 //     console.log(Submit);
 //     return false;
 // }
-function ShowRegistration(){
-$('#registrate').show();
-$('#buttons').hide();
+function ShowRegistration() {
+  $('#registration').show();
+  $('#buttons').hide();
+  $('#chat').hide();
+  $('#login').hide();
 }
-function ShowLogin(){
-$('#firebaseui-auth-container').show();
-$('#buttons').hide();
-uiStart();
+function ShowLogin() {
+  $('#login').show();
+  $('#buttons').hide();
+  $('#registration').hide();
+  $('#chat').hide();
+
+  
+}
+function ShowButtons(){
+  $('#buttons').show();
+  $('#login').hide();
+  $('#registration').hide();
+  $('#chat').hide();
+
+}
+function ShowChat(){
+  $('#chat').show();
+  $('#login').hide();
+  $('#registration').hide();
+  $('#buttons').hide();
+
+}
 
 
-}
 
 
 
@@ -76,8 +95,8 @@ function getSelectedRadioIdnex(buttons) {
     if (buttons[i].checked)
       return i;
 }
-function getCodeFromUserInput(){
- return document.getElementById("kodnumber").value
+function getCodeFromUserInput() {
+  return document.getElementById("kodnumber").value
 }
 function Submit() {
   var nameValue = document.getElementById('name').value;
@@ -129,5 +148,6 @@ window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('firebaseui-auth-
 recaptchaVerifier.render().then(function (widgetId) {
   window.recaptchaWidgetId = widgetId;
 });
+ShowButtons();
 
 
