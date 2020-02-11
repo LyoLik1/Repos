@@ -62,23 +62,24 @@ function ShowRegistration() {
   $('#buttons').hide();
   $('#chat').hide();
   $('#login').hide();
+  initRecaptchaOnRegister();
 }
 function ShowLogin() {
   $('#login').show();
   $('#buttons').hide();
   $('#registration').hide();
   $('#chat').hide();
+  uiStart();
 
-  
 }
-function ShowButtons(){
+function ShowButtons() {
   $('#buttons').show();
   $('#login').hide();
   $('#registration').hide();
   $('#chat').hide();
 
 }
-function ShowChat(){
+function ShowChat() {
   $('#chat').show();
   $('#login').hide();
   $('#registration').hide();
@@ -100,10 +101,9 @@ function getCodeFromUserInput() {
 }
 function Submit() {
   var nameValue = document.getElementById('name').value;
-  var passwordValue = document.getElementById('password').value;
   var numberValue = document.getElementById('number').value;
   var hobbiValue = document.getElementById('hobbi').value;
-  var polValue = getSelectedRadioIdnex(document.getElementsByName('pol'));
+  
 
 
   var appVerifier = window.recaptchaVerifier;
@@ -114,12 +114,20 @@ function Submit() {
         console.log("Confirm clicked");
         var code = getCodeFromUserInput();
         confirmationResult.confirm(code).then(function (result) {
-          // User signed in successfully.
           var user = result.user;
-          // ...
+          db.collection("Users").where("numberValue","==",numberValue).gеt().then(function(snapshot){
+          if(snapshot.docs.length ==0){
+
+
+
+          }
+          else
+
+          });
+          
+
         }).catch(function (error) {
-          // User couldn't sign in (bad verification code?)
-          // ...
+         
         });
 
       });
@@ -133,21 +141,22 @@ function Submit() {
 firebase.auth().languageCode = 'en';
 // To apply the default browser preference instead of explicitly setting it.
 // firebase.auth().useDeviceLanguage();
-
-window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('firebaseui-auth-container', {
-  'size': 'normal',
-  'callback': function (response) {
-    // reCAPTCHA solved, allow signInWithPhoneNumber.
-    // ...
-  },
-  'expired-callback': function () {
-    // Response expired. Ask user to solve reCAPTCHA again.
-    // ...
-  }
-});
-recaptchaVerifier.render().then(function (widgetId) {
-  window.recaptchaWidgetId = widgetId;
-});
+function initRecaptchaOnRegister() {
+  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha', {
+    'size': 'normal',
+    'callback': function (response) {
+      // reCAPTCHA solved, allow signInWithPhoneNumber.
+      // ...
+    },
+    'expired-callback': function () {
+      // Response expired. Ask user to solve reCAPTCHA again.
+      // ...
+    }
+  });
+  recaptchaVerifier.render().then(function (widgetId) {
+    window.recaptchaWidgetId = widgetId;
+  });
+}
 ShowButtons();
 
 

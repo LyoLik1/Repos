@@ -24,15 +24,10 @@ firebase.auth().onAuthStateChanged(function (user) {
     var userInfo = document.getElementById('user-info');
     userInfo.innerHTML = user.phoneNumber
     // document.getElementById('firebaseui-auth-container').style.display = "block";
-    document.getElementById('logout').style.display = "block";
-    document.getElementById('user-info').style.display = "block";
-
+ 
 
   } else {
-    document.getElementById('firebaseui-auth-container').style.display = "none";
-    document.getElementById('logout').style.display = "none";
-    document.getElementById('user-info').style.display = "none";
-    uiStart();
+   
   }
   return false;
 });

@@ -12,8 +12,10 @@
   <script src="/__/firebase/6.4.0/firebase-messaging.js"></script>
   <script src="/__/firebase/6.4.0/firebase-storage.js"></script>
   <script src="/__/firebase/6.4.0/firebase-firestore.js"></script>
+
   <script src="/__/firebase/init.js"></script>
- 
+ <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
   <link href="/css/main.css" rel="stylesheet">
   <script src="bootstrap-4.1.3-dist/js/jquery-3.3.1.slim.min.js" defer></script>
   <script src="bootstrap-4.1.3-dist/js/popper.min.js" async></script>
@@ -49,6 +51,7 @@
         <input class="input" id="name" type="text" maxlength="16" required="true" placeholder="name"><br><br>
       </div>
     </div>
+    <button onclick="logOut()" id="logout">Log out</button>
   </div>
   <div id="registration" class="text-left label-right">
     <form onsubmit="return Submit()">
@@ -61,13 +64,7 @@
             <input type="name" class="form-control" id="name" aria-describedby="Имя" placeholder="Имя">
           </div>
         </div>
-        <div class="form-group row">
-          <label for="exampleInputPassword1" class="col-sm-2 col-form-label">Пароль</label>
-          <div class="col-sm-10">
-            <input type="password" class="form-control" id="password" placeholder="Пароль">
-            <small id="passwordHelp" class="form-text text-muted">Мы никогда не покажем ваш пороль.</small>
-          </div>
-        </div>
+       
         <div class="form-group row">
           <label for="exampleInputNumber" class="col-sm-2 col-form-label">Номер телефона </label>
           <div class="col-sm-10">
@@ -88,22 +85,9 @@
             </select>
           </div>
         </div>
-        <div>
-          <label for="exampleInputPol">Пол </label>
-
-        </div>
-        <div class="form-check form-check-inline" padding-left: ($spacer * .5) !important;>
-
-          <input class="form-check-input" type="radio" name="pol" id="inlineRadio1" value="men">
-          <label class="form-check-label" for="inlineRadio1">Мужской</label>
-        </div>
-        <div class="form-check form-check-inline" padding-right: ($spacer * .5) !important;>
-
-          <input class="form-check-input" type="radio" name="pol" id="inlineRadio2" value="woman">
-          <label class="form-check-label" for="inlineRadio2">Женский</label>
-        </div>
-
-        <div id="firebaseui-auth-container"></div>
+       
+       
+        <div id="recaptcha"></div>
         <div>
           <button class="btn btn-primary" id="sign-in-button">
             Зарегестрироваться </button>
@@ -141,12 +125,12 @@
       <div id="user-info"></div>
       <div id="firebaseui-auth-container"></div>
 
-      <button onclick="logOut()" id="logout">Log out</button>
     </div>
   </div>
 
 </body>
 <script src="/JS/main.js"></script>
+<script src="/test/1.js"></script>
 
  
 </html>
@@ -154,127 +138,3 @@
 
 
 
-<!-- 
-
-<div class="card" style="width:30rem">
-  <div class="card-body">
-    <h5 class="card-title">Описание чата</h5>
-    <p class="card-text">Здесь вы можете обмениваться сообщениями с другими пользователями в общаться в реальном
-      времени </p>
-  </div>
-</div>
-<div class="card " style="width:30rem"></div>
-
-<div class="card-body">
-  <h5 class="card-title"> Чат</h5>
-  <p class="card-text">Нажмите на кнопку и начните общение прямо сейчас!!!</p>
-  <a href="chat.html" class="btn btn-primary" role="button">Чат</a>
-</div>
-</div>
-<div class="card" style="width:30rem">
-  <div class="card-body">
-    <h5 class="card-title"> Регистрация </h5>
-    <p class="card-text">Зарегистрируйтесь чтобы люди видели информацию о вас </p>
-    <a href="registration.html" class="btn btn-primary" role="button">Регистрация</a>
-  </div>
-</div>
-<div id="ChatPage">
-  <div id="registrate" style="display:none;">
-    <form onsubmit="return Submit()" id="FormRegistration">
-      <div class="card text-white bg-dark" style="width: 60rem;height: 35;">
-        <h4 class="card-title">Регестрация</h4>
-        <div class="form-group row">
-
-          <label for="staticName" class="col-sm-2 col-form-label">Имя</label>
-          <div class="col-sm-10">
-            <input type="name" class="form-control" id="name" aria-describedby="Имя" placeholder="Имя">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="exampleInputPassword1" class="col-sm-2 col-form-label">Пароль</label>
-          <div class="col-sm-10">
-            <input type="password" class="form-control" id="password" placeholder="Пароль">
-            <small id="passwordHelp" class="form-text text-muted">Мы никогда не покажем ваш пороль.</small>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="exampleInputNumber" class="col-sm-2 col-form-label">Номер телефона </label>
-          <div class="col-sm-10">
-
-            <input type="text" class="form-control" placeholder="Номер" id="number">
-          </div>
-        </div>
-        <div class="form-row">
-
-          <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">Хобби</label>
-          <div class="col-sm-10">
-            <select class="form-control" id="hobbi">
-              <option>Футбол</option>
-              <option>Хоккей</option>
-              <option>Программирование</option>
-              <option>Нет</option>
-              <option>Другое</option>
-            </select>
-          </div>
-        </div>
-        <div>
-          <label for="exampleInputPol">Пол </label>
-
-        </div>
-        <div class="form-check form-check-inline" padding-left: ($spacer * .5) !important;>
-
-          <input class="form-check-input" type="radio" name="pol" id="inlineRadio1" value="men">
-          <label class="form-check-label" for="inlineRadio1">Мужской</label>
-        </div>
-        <div class="form-check form-check-inline" padding-right: ($spacer * .5) !important;>
-
-          <input class="form-check-input" type="radio" name="pol" id="inlineRadio2" value="woman">
-          <label class="form-check-label" for="inlineRadio2">Женский</label>
-        </div>
-
-        <div id="firebaseui-auth-container"></div>
-        <div>
-          <button class="btn btn-primary" id="sign-in-button">
-            Зарегестрироваться </button>
-        </div>
-
-      </div>
-
-    </form>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" id aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label" class="">Код:</label>
-              <input type="text" class="form-control" id="kodnumber">
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="confirm_button"> Confirm</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="login" style="display:none;">
-    <div id="firebaseui-auth-container"></div>
-  </div>
-  <div id="messageList" style="display:none">
-
-
-
-  </div>
-  <div id="NumberRegistration">
-    <div id="user-info"></div>
-    <div id="firebaseui-auth-container"></div>
-
-    <button onclick="logOut()" id="logout">Log out</button>
-  </div> -->
