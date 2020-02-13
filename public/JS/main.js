@@ -115,15 +115,8 @@ function Submit() {
         var code = getCodeFromUserInput();
         confirmationResult.confirm(code).then(function (result) {
           var user = result.user;
-          db.collection("Users").where("numberValue","==",numberValue).gеt().then(function(snapshot){
-          if(snapshot.docs.length ==0){
-
-
-
-          }
-          else
-
-          });
+          
+        
           
 
         }).catch(function (error) {
@@ -131,6 +124,7 @@ function Submit() {
         });
 
       });
+    
       //window.confirmationResult = confirmationResult;
 
     }).catch(function (error) {
@@ -158,5 +152,9 @@ function initRecaptchaOnRegister() {
   });
 }
 ShowButtons();
+function Random(){
+var w,a,s,d;
+var all="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890";
+//....
 
-
+}
